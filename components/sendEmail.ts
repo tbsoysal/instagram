@@ -12,7 +12,7 @@ export async function sendContactEmail(formData: FormData) {
   try {
     const data = await resend.emails.send({
       from: "İletişim Formu <onboarding@resend.dev>", // Alan adınızı doğrulayana kadar test için bu adres kullanılır
-      to: ["kendi-mailiniz@gmail.com"], // Mailin düşeceği kendi adresiniz
+      to: ["berksysl.g@gmail.com"], // Mailin düşeceği kendi adresiniz
       replyTo: email, // Yanıtla dediğinizde formu dolduran kişiye gitmesi için
       subject: `Yeni Form Mesajı: ${name}`,
       text: `Gönderen: ${name} (${email})\n\nMesaj:\n${message}`,
