@@ -50,6 +50,7 @@ export default function LoginPage() {
               <div className="field">
                 <input
                   id="username"
+                  name="username"
                   type="text"
                   placeholder=" "
                   autoComplete="username"
@@ -64,6 +65,7 @@ export default function LoginPage() {
               <div className="field field-password">
                 <input
                   id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder=" "
                   autoComplete="current-password"
