@@ -1,26 +1,506 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #fafafa;
+  color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+input {
+  font-family: inherit;
+}
+
+/* ---------- Page shell ---------- */
+
+.page {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 76px;
+  padding: 56px 20px 32px;
+}
+
+/* ---------- Phone mockup (desktop hero) ---------- */
+
+.phone-col {
+  display: block;
+  width: 380px;
+  flex-shrink: 0;
+}
+
+.phone-frame {
+  position: relative;
+  width: 350px;
+  height: 683px;
+  margin-left: auto;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='350' height='683'/%3E");
+}
+
+.phone-shell {
+  position: absolute;
+  inset: 0;
+  border-radius: 38px;
+  border: 12px solid #1a1a1a;
+  background: #fff;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.phone-shell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 22px;
+  background: #1a1a1a;
+  border-radius: 0 0 16px 16px;
+  z-index: 3;
+}
+
+.phone-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-topbar {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  font-family: var(--font-logo), cursive;
+  font-size: 22px;
+  border-bottom: 1px solid #efefef;
+}
+
+.phone-stories {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #efefef;
+}
+
+.story-ring {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+  flex-shrink: 0;
+}
+
+.story-ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-size: cover;
+  background-position: center;
+}
+
+.phone-feed {
+  flex: 1;
+  overflow: hidden;
+}
+
+.feed-post {
+  padding-bottom: 6px;
+}
+
+.feed-post-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+.feed-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.feed-name {
+  height: 8px;
+  width: 70px;
+  border-radius: 4px;
+  background: #e0e0e0;
+}
+
+.feed-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center;
+}
+
+.feed-actions {
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px 0;
+}
+
+.feed-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+}
+
+.phone-tabbar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-top: 1px solid #efefef;
+}
+
+.phone-tabbar span {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: #cfcfcf;
+}
+
+.phone-frame-back {
+  position: absolute;
+  top: 60px;
+  left: -60px;
+  z-index: -1;
+  opacity: 0.9;
+}
+
+/* ---------- Login column ---------- */
+
+.login-col {
+  width: 350px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 1px;
+  padding: 40px 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wordmark {
+  font-family: var(--font-logo), cursive;
+  font-size: 52px;
+  font-weight: 400;
+  margin: 22px 0 30px;
+  line-height: 1;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field {
+  position: relative;
+}
+
+.field input {
+  width: 100%;
+  height: 38px;
+  background: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  padding: 9px 8px 0;
+  font-size: 12px;
+  color: #000;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: #a8a8a8;
+}
+
+.field label {
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #8e8e8e;
+  pointer-events: none;
+  transition: 0.1s ease-out;
+  transition-property: top, font-size, transform;
+}
+
+.field input:not(:placeholder-shown) + label,
+.field input:focus + label {
+  top: 7px;
+  font-size: 10px;
+  transform: translateY(0);
+}
+
+.field-password input {
+  padding-right: 60px;
+}
+
+.toggle-visibility {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: #000;
+}
+
+.btn-primary {
+  margin-top: 8px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: #0095f6;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:disabled {
+  background: #67b7f7;
+  opacity: 0.7;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 18px 0;
+  width: 100%;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #dbdbdb;
+}
+
+.divider span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8e8e8e;
+}
+
+.fb-login {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #385185;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.forgot-link {
+  font-size: 12px;
+  color: #00376b;
+  margin-bottom: 20px;
+}
+
+.signup-card {
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 1px;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.signup-card a {
+  color: #0095f6;
+  font-weight: 600;
+}
+
+.get-app {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.app-badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.app-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #000;
+}
+
+.app-badge .badge-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.app-badge .badge-sub {
+  font-size: 8px;
+  color: #666;
+}
+
+.app-badge .badge-main {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  padding: 28px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  color: #8e8e8e;
+  font-size: 12px;
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #999;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 16px;
+  max-width: 630px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-lang {
+  border: none;
+  background: none;
+  color: #8e8e8e;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 915px) {
+  .phone-col {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .card {
+    border: none;
+    padding: 24px 24px 16px;
+  }
+
+  .signup-card {
+    border: none;
+  }
+
+  .login-col {
+    width: 100%;
+  }
+
+  .main {
+    padding-top: 24px;
+    gap: 0;
+  }
+
+  .footer-links {
+    max-width: 300px;
+  }
 }
